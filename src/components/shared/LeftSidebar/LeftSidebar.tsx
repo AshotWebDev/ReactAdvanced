@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { BookPlus, FileQuestion, Home, LogIn, LucideFileQuestion, LucideNewspaper, LucideUser2, LucideUsers2, Tags, UserRoundX, UsersRound } from "lucide-react";
+import { BookPlus, FileQuestion, Home, LogIn, LucideFileQuestion, LucideNewspaper, LucideUser2, LucideUserCircle, LucideUsers2, LucideUserX2, Tags, UserRoundX, UsersRound } from "lucide-react";
 import { ReactNode, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -71,15 +71,20 @@ const LeftSidebar = () => {
                 </Link>
             </div>
 
-            <div className="flex flex-col gap-4">
-                <Link to='/sign-in' className="bg-red-500 hover:bg-red-400 flex items-center justify-start gap-4  p-3 rounded-lg text-slate-50">
-                <   LogIn  className="h-5 w-5"/>
-                    <span className="max-lg:hidden">Sign In</span>
-                </Link>
+            <div className="mt-5 flex flex-col gap-5">
+                <Link to="/sign-in">
+                    <Button className="body-semibold btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 text-zinc-50">
+                        <LucideUserCircle className="h-5 w-5 lg:hidden"/>
+                        <span className="max-lg:hidden">Sign In</span>
+                    </Button>
                 
-                <Link to='/sign-up' className="btn-tertiary flex items-center justify-start gap-4  p-3 rounded-lg text-slate-50">
-                <UserRoundX className="h-5 w-5"/>  
-                    <span className="max-lg:hidden">Sign Up</span>
+                </Link>
+
+                <Link to="/sign-up">
+                    <Button className="body-semibold btn-tertiary  min-h-[41px] w-full rounded-lg px-4 py-3 text-zinc-50">
+                        <LucideUserX2 className="h-5 w-5 lg:hidden"/>
+                        <span className="max-lg:hidden">Sign Up</span>
+                    </Button>
                 </Link>
             </div>
         </section>
