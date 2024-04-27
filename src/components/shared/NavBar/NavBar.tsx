@@ -9,13 +9,14 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu"; 
 import logo from "@/aseets/logo.png";
 import GlobalSearch from "../GlobalSearch/GlobalSearch";
 import Theme from "./Theme";
 import UserMenu from "./UserMenu";
 import ToggleBurgerMenu from "../ToggleBurgerMenu/ToggleBurgerMenu";
 import { useEffect, useState } from "react";
+import DropDawnSearch from "../DropDawnSearch/DropDawnSearch";
 
 const Navbar = () => {
   const [activeBurger, setActiveBurger] = useState(false)
@@ -34,7 +35,7 @@ const Navbar = () => {
     };
   }, []);
 
-  
+
   return (
     <nav className=" p-5 fixed z-50 flex w-full items-center justify-between gap-3 bg-zinc-50 shadow-sm sm:px-12 dark:bg-zinc-900 dark:shadow-black">
       <Link to="/" className="flex items-center gap-1">
@@ -45,7 +46,8 @@ const Navbar = () => {
         </h3>
       </Link>
       
-      <GlobalSearch/>
+      <DropDawnSearch/>
+      {/* <GlobalSearch/> */}
       <div className="flex items-center gap-4">
         <DropdownMenu>
           <DropdownMenuTrigger className="p-1">

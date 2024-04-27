@@ -67,7 +67,7 @@ const PostCard = ({
                 }
             </div>
 
-            <div className="mt-6 flex flex-wrap w-full items-center justify-between gap-3">
+            <div className="mt-6 flex flex-wrap w-full items-center justify-between gap-3"> 
                 <Matric
                     imgUrl={author.image}
                     value={author.name}

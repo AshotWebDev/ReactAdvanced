@@ -8,7 +8,6 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
 import { Home, LucideFileQuestion, LucideNewspaper, LucideUsers2, Menu, Tags } from "lucide-react"
-import { useEffect, useRef } from "react"
 import { Link, useLocation } from "react-router-dom"
 
 
