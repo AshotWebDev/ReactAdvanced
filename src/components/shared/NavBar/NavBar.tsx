@@ -14,8 +14,27 @@ import logo from "@/aseets/logo.png";
 import GlobalSearch from "../GlobalSearch/GlobalSearch";
 import Theme from "./Theme";
 import UserMenu from "./UserMenu";
+import ToggleBurgerMenu from "../ToggleBurgerMenu/ToggleBurgerMenu";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
+  const [activeBurger, setActiveBurger] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setActiveBurger(window.innerWidth < 480);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  
   return (
     <nav className=" p-5 fixed z-50 flex w-full items-center justify-between gap-3 bg-zinc-50 shadow-sm sm:px-12 dark:bg-zinc-900 dark:shadow-black">
       <Link to="/" className="flex items-center gap-1">
@@ -54,6 +73,8 @@ const Navbar = () => {
 
         <Theme type="dropdown"/>
         <UserMenu/>
+
+        {activeBurger && <ToggleBurgerMenu/>}
 
       </div>
     </nav>
