@@ -11,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"; 
 import logo from "@/aseets/logo.png";
-import GlobalSearch from "../GlobalSearch/GlobalSearch";
 import Theme from "./Theme";
 import UserMenu from "./UserMenu";
 import ToggleBurgerMenu from "../ToggleBurgerMenu/ToggleBurgerMenu";
