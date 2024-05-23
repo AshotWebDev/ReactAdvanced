@@ -11,11 +11,13 @@ interface Posts {
     comments: string[];
     createdAt: string;
     tags: string[];
-    upvotes: number;
+    likes: number;
+    disLikes: number;
     views: number;
     author: Author;
     image: string;
     likesPosts: string[];
+    preferredPosts: string[];
 }
 
 interface PostsState {
@@ -33,6 +35,12 @@ interface DelPostPayload {
 
 interface AddPostPayload {
     post: Posts;
+    userId: string;
+}
+
+
+interface LikesPostPayload {
+    postId: string;
     userId: string;
 }
 
@@ -63,6 +71,48 @@ const PostsSlice = createSlice({
             );
             if (postIndex !== -1) {
                 state.posts[postIndex] = action.payload;
+            }
+        },
+
+        setLikesPosts: (state, action: PayloadAction<LikesPostPayload>) => {
+            const postIndex = state.posts.findIndex(
+                (post) => post.id === action.payload.postId
+
+                
+            );
+            if (postIndex !== -1 && !state.posts[postIndex].likesPosts.includes(action.payload.userId)) {
+                state.posts[postIndex].likesPosts.push(action.payload.userId);
+            }
+        },
+
+        disLikesPosts: (state, action: PayloadAction<LikesPostPayload>) => {
+            const postIndex = state.posts.findIndex(
+                (post) => post.id === action.payload.postId
+            );
+            if (postIndex !== -1 && state.posts[postIndex].likesPosts.includes(action.payload.userId)) {
+                state.posts[postIndex].likesPosts = state.posts[postIndex].likesPosts.filter(
+                    (userId) => userId !== action.payload.userId
+                );
+            }
+        },
+
+        addpreferredPosts: (state, action: PayloadAction<string>) => {
+            const postIndex = state.posts.findIndex(
+                (post) => post.id === action.payload
+            );
+            if (postIndex !== -1 && !state.posts[postIndex].preferredPosts.includes(action.payload)) {
+                state.posts[postIndex].preferredPosts.push(action.payload);
+            }
+        },
+
+        delpreferredPosts: (state, action: PayloadAction<string>) => {
+            const postIndex = state.posts.findIndex(
+                (post) => post.id === action.payload
+            );
+            if (postIndex !== -1 && state.posts[postIndex].preferredPosts.includes(action.payload)) {
+                state.posts[postIndex].preferredPosts = state.posts[postIndex].preferredPosts.filter(
+                    (userId) => userId !== action.payload
+                );
             }
         },
     },
