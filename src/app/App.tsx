@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import PostPageAsync from "@/pages/PostPage/PostPage.async";
 import SignInAsync from "@/pages/SignIn/SignIn.async";
 import SignUpAsync from "@/pages/SignUp/SignUp.async";
-import UserProfile from "@/pages/UsersPage/UserProfile";
+// import UserProfile from "@/pages/UsersPage/UserProfile";
 import UsersPage from "@/pages/UsersPage/UsersPage";
 
 const App = () => {
@@ -18,7 +18,7 @@ const App = () => {
           <Route path="/about" element={<AboutPageAsync />} />
           <Route path="/users">
             <Route index element={<UsersPage/>} />
-            <Route path=":id" element={<UserProfile/>} />
+            {/* <Route path=":id" element={<UserProfile/>} /> */}
           </Route>
 
           <Route path="/sign-in" element={<SignInAsync />} />

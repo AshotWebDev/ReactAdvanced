@@ -25,7 +25,7 @@ interface Posts {
 
 
 
-  const postsSlice = createSlice({
+  const PostsSlice = createSlice({
     name: "posts",
     initialState,
     reducers: {
@@ -61,6 +61,6 @@ interface Posts {
 
 
 
-  export const { setPosts, addPost, updatePost, deletePost, addLikesPosts } = postsSlice.actions;
+  export const { setPosts, addPost, updatePost, deletePost, addLikesPosts } = PostsSlice.actions;
 
-  export default postsSlice.reducer
+  export default PostsSlice.reducer
