@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface Author {
+    id: string;
+    name: string;
+}
+
 interface Posts {
     id: string;
     title: string;
@@ -8,59 +13,61 @@ interface Posts {
     tags: string[];
     upvotes: number;
     views: number;
-    author: any;
+    author: Author;
     image: string;
     likesPosts: string[];
-  }
-  
-  interface UserState {
+}
+
+interface PostsState {
     posts: Posts[];
-    currentPosts: Posts[] | null;
-  }
-  
-  const initialState: UserState = {
+}
+
+const initialState: PostsState = {
     posts: [],
-    currentPosts: null,
-  };
+};
 
+interface DelPostPayload {
+    postId: string;
+    userId: string;
+}
 
+interface AddPostPayload {
+    post: Posts;
+    userId: string;
+}
 
-  const PostsSlice = createSlice({
+const PostsSlice = createSlice({
     name: "posts",
     initialState,
     reducers: {
-      setPosts: (state, action: PayloadAction<Posts[]>) => {
-        state.posts = action.payload;
-      },
-      addPost: (state, action: PayloadAction<Posts>) => {
-        state.posts.push(action.payload);
-      },
+        setPosts: (state, action: PayloadAction<Posts[]>) => {
+            state.posts = action.payload;
+        },
 
-      updatePost: (state, action: PayloadAction<Posts>) => {
-        const postIndex = state.posts.findIndex(
-          (post) => post.id === action.payload.id
-        );
-        if (postIndex !== -1) {
-          state.posts[postIndex] = action.payload;
-        }
-      },
-      deletePost: (state, action: PayloadAction<string>) => {
-        state.posts = state.posts.filter((post) => post.id !== action.payload);
-      },
-      
-      addLikesPosts: (state, action: PayloadAction<string>) => {
-        const postIndex = state.posts.findIndex(
-          (post) => post.id === action.payload
-        );
-        if (postIndex !== -1) {
-          state.posts[postIndex].likesPosts.push(action.payload);
-        }
-      },
+        deletePost: (state, action: PayloadAction<DelPostPayload>) => {
+            state.posts = state.posts.filter(
+                (post) => post.id !== action.payload.postId && post.author.id === action.payload.userId
+            );
+        },
+
+        addPost: (state, action: PayloadAction<AddPostPayload>) => {
+            const { post, userId } = action.payload;
+            if (post.author.id === userId) {
+                state.posts.push(post);
+            }
+        },
+
+        updatePost: (state, action: PayloadAction<Posts>) => {
+            const postIndex = state.posts.findIndex(
+                (post) => post.id === action.payload.id
+            );
+            if (postIndex !== -1) {
+                state.posts[postIndex] = action.payload;
+            }
+        },
     },
-  });
+});
 
+export const { setPosts, deletePost, addPost, updatePost } = PostsSlice.actions;
 
-
-  export const { setPosts, addPost, updatePost, deletePost, addLikesPosts } = PostsSlice.actions;
-
-  export default PostsSlice.reducer
+export default PostsSlice.reducer;
