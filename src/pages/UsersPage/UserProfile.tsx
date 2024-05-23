@@ -11,30 +11,30 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 const UserProfile = () => {
     const dispatch = useAppDispatch();
 
-    const uniqueUser = useAppSelector((state: RootState) => state.users.uniqueUser);
+    const uniqueUser = useAppSelector((state: RootState) => state.users.currentUser);
 
-    const handleNameChange = (newName: string) => {
-        dispatch(updateUniqueUserName(newName));
-    };
+    // const handleNameChange = (newName: string) => {
+    //     dispatch(updateUniqueUserName(newName));
+    // };
 
-    const handleUsernameChange = (newUsername: string) => {
-        dispatch(updateUniqueUserUsername(newUsername));
-    };
+    // const handleUsernameChange = (newUsername: string) => {
+    //     dispatch(updateUniqueUserUsername(newUsername));
+    // };
 
-    const handleImageChange = (newImage: string) => {
-        dispatch(updateUniqueUserImage(newImage));
-    };
+    // const handleImageChange = (newImage: string) => {
+    //     dispatch(updateUniqueUserImage(newImage));
+    // };
 
-    const handleAddFollower = (newFollower: string) => {
-        dispatch(addFollower(newFollower));
-    };
+    // const handleAddFollower = (newFollower: string) => {
+    //     dispatch(addFollower(newFollower));
+    // };
 
-    console.log(uniqueUser,'ddd');
+    // console.log(uniqueUser,'ddd');
     
 
     return (
         <div>
-            {uniqueUser && (
+            {/* {uniqueUser && (
                 <div>
                     <h1>{uniqueUser.name}</h1>
                     <button onClick={() => handleNameChange("name")}>Change Name</button>
@@ -42,7 +42,7 @@ const UserProfile = () => {
                     <button onClick={() => handleImageChange("hhhhhhhhh")}>Change Image</button>
                     <button onClick={() => handleAddFollower("fol")}>Add Follower</button>
                 </div>
-            )}
+            )} */}
 
         </div>
     );

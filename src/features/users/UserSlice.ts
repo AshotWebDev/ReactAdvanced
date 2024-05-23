@@ -1,86 +1,82 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-
-
 interface User {
-    id: string;
-    name: string;
-    nickname: string;
-    image: string;
-    followers: string[];
+  id: string;
+  nickname: string;
+  firstName: string;
+  lastName: string;
+  picture: string;
+  followers: string[];
+  following: string[];
 }
 
 interface UserState {
-    allUsers: User[];
-    uniqueUser: User | null;
-    loading: boolean;
+  users: User[];
+  currentUser: User | null;
 }
 
 const initialState: UserState = {
-    allUsers: [
-        {
-            id: "1",
-            name: 'Ashot Poghosyan',
-            nickname: 'ashot29',
-            image: "https://picsum.photos/200/300",
-            followers: ['1', '2', '3'],
-        }
-    ],
-    uniqueUser: {
-        id: "1",
-        name: 'Ashot Poghosyan',
-        nickname: 'ashot29',
-        image: "https://picsum.photos/200/300",
-        followers: ['1', '2', '3'],},
-    loading: false,
+  users: [],
+  currentUser: null,
 };
 
 const userSlice = createSlice({
-    name: "users",
-    initialState,
-    reducers: {
-        setAllUsers: (state, action: PayloadAction<User[]>) => {
-            state.allUsers = action.payload;
-        },
-        setUniqueUser: (state, action: PayloadAction<User>) => {
-            state.uniqueUser = action.payload;
-        },
-        updateUniqueUserName: (state, action: PayloadAction<string>) => {
-            if (state.uniqueUser) {
-                state.uniqueUser.name = action.payload;
-            }
-        },
-        updateUniqueUserUsername: (state, action: PayloadAction<string>) => {
-            if (state.uniqueUser) {
-                state.uniqueUser.nickname = action.payload;
-            }
-        },
-        updateUniqueUserImage: (state, action: PayloadAction<string>) => {
-            if (state.uniqueUser) {
-                state.uniqueUser.image = action.payload;
-            }
-        },
-        addFollower: (state, action: PayloadAction<string>) => {
-            if (state.uniqueUser) {
-                const temp = action.payload;
-                if (!state.uniqueUser.followers.includes(temp)) {
-                    state.uniqueUser.followers.push(temp);
-                }
-            }
-        },
+  name: "users",
+  initialState,
+  reducers: {
+    setUsers(state, action: PayloadAction<User[]>) {
+      state.users = action.payload;
     },
-    extraReducers: () => {
-        
-    }
+    setCurrentUser(state, action: PayloadAction<User>) {
+      state.currentUser = action.payload;
+    },
+    followUser(state, action: PayloadAction<string>) {
+      const userToFollow = state.users.find(
+        (user) => user.id === action.payload
+      );
+
+      if (userToFollow && state.currentUser) {
+        state.currentUser.following.push(userToFollow.id);
+        userToFollow.followers.push(state.currentUser.id);
+      }
+    },
+    unfollowUser(state, action: PayloadAction<string>) {
+      const userToUnfollow = state.users.find(
+        (user) => user.id === action.payload
+      );
+
+      if (userToUnfollow && state.currentUser) {
+        state.currentUser.following = state.currentUser.following.filter(
+          (id) => id !== userToUnfollow.id
+        );
+
+        userToUnfollow.followers = userToUnfollow.followers.filter(
+          (id) => id !== state.currentUser?.id
+        );
+      }
+    },
+    updateUserProfile(state, action: PayloadAction<User>) {
+      const userIndex = state.users.findIndex(
+        (user) => user.id === action.payload.id
+      );
+
+      if (userIndex !== -1) {
+        state.users[userIndex] = action.payload;
+
+        if (state.currentUser?.id === action.payload.id) {
+          state.currentUser = action.payload;
+        }
+      }
+    },
+  },
 });
 
 export const {
-    setAllUsers,
-    setUniqueUser,
-    updateUniqueUserName,
-    updateUniqueUserUsername,
-    updateUniqueUserImage,
-    addFollower
+  setUsers,
+  setCurrentUser,
+  followUser,
+  unfollowUser,
+  updateUserProfile,
 } = userSlice.actions;
 
 export default userSlice.reducer;
