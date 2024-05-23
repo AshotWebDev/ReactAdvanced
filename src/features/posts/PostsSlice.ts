@@ -96,23 +96,26 @@ const PostsSlice = createSlice({
             }
         },
 
-        addpreferredPosts: (state, action: PayloadAction<string>) => {
+        preferredPosts: (state, action: PayloadAction<string>) => {
             const postIndex = state.posts.findIndex(
                 (post) => post.id === action.payload
             );
-            if (postIndex !== -1 && !state.posts[postIndex].preferredPosts.includes(action.payload)) {
-                state.posts[postIndex].preferredPosts.push(action.payload);
+            if (postIndex !== -1) {
+                if(state.posts[postIndex].preferredPosts.includes(action.payload)) {
+                    state.posts[postIndex].preferredPosts = state.posts[postIndex].preferredPosts.filter((postId) => postId !== action.payload);
+                }
+                else {
+                    state.posts[postIndex].preferredPosts.push(action.payload);
+                }
             }
         },
 
-        delpreferredPosts: (state, action: PayloadAction<string>) => {
+        ViewsPosts: (state, action: PayloadAction<string>) => {
             const postIndex = state.posts.findIndex(
                 (post) => post.id === action.payload
             );
-            if (postIndex !== -1 && state.posts[postIndex].preferredPosts.includes(action.payload)) {
-                state.posts[postIndex].preferredPosts = state.posts[postIndex].preferredPosts.filter(
-                    (userId) => userId !== action.payload
-                );
+            if (postIndex !== -1) {
+                state.posts[postIndex].views += 1;
             }
         },
     },
